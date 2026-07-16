@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const API_BASE = window.location.hostname === 'localhost' ? 'http://127.0.0.1:8000' : 'http://127.0.0.1:8000';
-const API = axios.create({ baseURL: `${API_BASE}/api/inventory/` });
-const AUTH_API = axios.create({ baseURL: `${API_BASE}/api/auth/` });
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/inventory/';
+const AUTH_BASE = import.meta.env.VITE_AUTH_BASE_URL || 'http://127.0.0.1:8000/api/auth/';
+
+const API = axios.create({ baseURL: API_BASE });
+const AUTH_API = axios.create({ baseURL: AUTH_BASE });
 
 // Automatically attach the login token to every request
 API.interceptors.request.use((config) => {
