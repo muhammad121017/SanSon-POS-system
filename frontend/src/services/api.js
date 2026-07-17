@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://127.0.0.1:8000/api/inventory/' });
-const AUTH_API = axios.create({ baseURL: 'http://127.0.0.1:8000/api/auth/' });
+const API_BASE = window.location.hostname === 'localhost' ? 'http://127.0.0.1:8000' : 'http://127.0.0.1:8000';
+const API = axios.create({ baseURL: `${API_BASE}/api/inventory/` });
+const AUTH_API = axios.create({ baseURL: `${API_BASE}/api/auth/` });
 
 // Automatically attach the login token to every request
 API.interceptors.request.use((config) => {
@@ -11,7 +12,12 @@ API.interceptors.request.use((config) => {
 });
 
 // Auth Endpoints
-export const loginUser = async (credentials) => (await AUTH_API.post('login/', credentials)).data;
+export const loginUser = async (credentials) => {
+    const response = await AUTH_API.post('login/', credentials, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return response.data;
+};
 export const getUserRole = async () => (await API.get('me/')).data;
 
 // Inventory Endpoints
