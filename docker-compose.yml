@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: pos_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: pos_db
+      MYSQL_USER: pos_user
+      # Feel free to change these credentials
+      MYSQL_PASSWORD: pos_password
+      MYSQL_ROOT_PASSWORD: pos_root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  backend:
+    build:
+      context: ./enterprise-pos/backend
+      dockerfile: Dockerfile
+    container_name: pos_backend
+    restart: always
+    environment:
+      - DB_NAME=pos_db
+      - DB_USER=pos_user
+      - DB_PASSWORD=pos_password
+      - DB_HOST=db
+      - DB_PORT=3306
+      - SECRET_KEY=django-insecure-j2-vps-deploy-muhammad-2026
+      - DEBUG=False
+      - ALLOWED_HOSTS=*
+      - CORS_ALLOW_ALL_ORIGINS=True
+    depends_on:
+      - db
+    volumes:
+      - django_static:/app/staticfiles
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pos_frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    volumes:
+      - django_static:/usr/share/nginx/html/static
+
+volumes:
+  mysql_data:
+  django_static:
