@@ -26,6 +26,17 @@ echo "Database is ready!"
 echo "Running database migrations..."
 python manage.py migrate --noinput
 
+echo "Creating default superusers..."
+python manage.py shell -c "
+from django.contrib.auth.models import User
+if not User.objects.filter(username='muhammad').exists():
+    User.objects.create_superuser('muhammad', 'muhammad@example.com', 'mady1122')
+    print('Superuser muhammad created!')
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', 'admin@example.com', 'admin1122')
+    print('Superuser admin created!')
+"
+
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
