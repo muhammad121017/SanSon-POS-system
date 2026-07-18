@@ -24,7 +24,7 @@ import {
 
 import './App.css';
 
-const CHART_COLORS = ['#6366f1', '#22d3ee', '#34d399', '#f59e0b', '#ef4444', '#a78bfa'];
+const CHART_COLORS = ['#ffffff', '#888888', '#555555', '#333333', '#222222', '#111111'];
 
 function App() {
   // Auth State
@@ -529,10 +529,10 @@ function App() {
 
   // Login Screen render
   if (!token) return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#0b0f19' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#000000' }}>
       <form onSubmit={handleLogin} className="glass-card" style={{ width: '360px', textAlign: 'center', padding: '40px 30px' }}>
         <div className="brand-mark" style={{ margin: '0 auto 20px auto' }}>S</div>
-        <h2 style={{ fontFamily: 'Outfit', fontSize: '1.8rem', marginBottom: '8px' }}>SanSons POS</h2>
+        <h2 style={{ fontFamily: 'Inter', fontSize: '1.8rem', marginBottom: '8px', fontWeight: '600', letterSpacing: '-0.04em' }}>SanSons POS</h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '30px', fontSize: '0.9rem' }}>Enterprise Management Portal</p>
         
         <div className="form-group" style={{ marginBottom: '15px', textAlign: 'left' }}>
@@ -564,7 +564,7 @@ function App() {
 
   return (
     <div className="dashboard-shell">
-      <Toaster position="top-right" toastOptions={{ style: { background: '#161b26', color: '#f3f4f6', border: '1px solid rgba(255,255,255,0.08)' } }} />
+      <Toaster position="top-right" toastOptions={{ style: { background: '#0a0a0a', color: '#ffffff', border: '1px solid rgba(255,255,255,0.08)' } }} />
       
       {/* Sidebar navigation */}
       <aside className="sidebar no-print">
@@ -704,7 +704,7 @@ function App() {
                           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                           <XAxis dataKey="date" stroke="var(--text-secondary)" fontSize={11} />
                           <YAxis stroke="var(--text-secondary)" fontSize={11} />
-                          <Tooltip contentStyle={{ background: '#161b26', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} />
+                          <Tooltip contentStyle={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', color: '#fff', borderRadius: '8px' }} />
                           <Area type="monotone" dataKey="revenue" name="Revenue (PKR)" stroke="var(--accent-primary)" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
                         </AreaChart>
                       </ResponsiveContainer>
