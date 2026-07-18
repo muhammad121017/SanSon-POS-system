@@ -4,7 +4,8 @@ import {
   FiLayout, FiShoppingCart, FiBox, FiLayers, FiUsers, 
   FiTruck, FiDollarSign, FiClock, FiFileText, FiSettings, 
   FiLogOut, FiSearch, FiPlus, FiTrash2, FiEdit, FiRefreshCw, 
-  FiCheckCircle, FiAlertTriangle, FiPercent, FiActivity, FiX, FiCheck, FiPrinter, FiPlusCircle, FiFilePlus
+  FiCheckCircle, FiAlertTriangle, FiPercent, FiActivity, FiX, FiCheck, FiPrinter, FiPlusCircle, FiFilePlus,
+  FiTrendingUp
 } from 'react-icons/fi';
 import {
   ResponsiveContainer, AreaChart, Area, BarChart, Bar,
