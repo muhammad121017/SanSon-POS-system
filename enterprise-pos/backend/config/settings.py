@@ -236,6 +236,11 @@ UNFOLD = {
                         "link": "/admin/auth/user/",
                     },
                     {
+                        "title": "Add User",
+                        "icon": "person_add",
+                        "link": "/admin/auth/user/add/",
+                    },
+                    {
                         "title": "Groups",
                         "icon": "admin_panel_settings",
                         "link": "/admin/auth/group/",
