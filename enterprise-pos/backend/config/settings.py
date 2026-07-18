@@ -33,7 +33,7 @@ allowed_hosts_env = os.getenv('ALLOWED_HOSTS')
 if allowed_hosts_env:
     ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(',') if host.strip()]
 else:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'sansons.shop', 'www.sansons.shop']
 
 
 # Application definition
@@ -183,20 +183,137 @@ UNFOLD = {
     "SITE_TITLE": "SanSons POS",
     "SITE_HEADER": "SanSons POS",
     "SITE_URL": "/",
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    # -- Custom CSS & JS injected into every admin page --
+    "STYLES": [
+        lambda request: "/static/admin/css/custom_admin.css",
+    ],
+    "SCRIPTS": [
+        lambda request: "/static/admin/js/theme_toggle.js",
+    ],
+    # -- Color palette (Tailwind CSS HSL function values) --
     "COLORS": {
         "primary": {
-            "50": "#fafafa",
-            "100": "#f4f4f5",
-            "200": "#e4e4e7",
-            "300": "#d4d4d8",
-            "400": "#a1a1aa",
-            "500": "#71717a",
-            "600": "#52525b",
-            "700": "#3f3f46",
-            "800": "#27272a",
-            "900": "#18181b",
-            "950": "#000000",
+            "50": "240 6% 97%",
+            "100": "214 32% 96%",
+            "200": "214 32% 91%",
+            "300": "213 27% 84%",
+            "400": "215 20% 65%",
+            "500": "217 33% 17%",
+            "600": "221 39% 11%",
+            "700": "224 71% 4%",
+            "800": "240 10% 6%",
+            "900": "240 10% 4%",
+            "950": "0 0% 0%",
         },
+    },
+    # -- Sidebar with Material Icons --
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Dashboard",
+                "separator": True,
+                "collapsible": False,
+                "items": [
+                    {
+                        "title": "Dashboard",
+                        "icon": "dashboard",
+                        "link": "/admin/",
+                    },
+                ],
+            },
+            {
+                "title": "Authentication",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Users",
+                        "icon": "people",
+                        "link": "/admin/auth/user/",
+                    },
+                    {
+                        "title": "Groups",
+                        "icon": "admin_panel_settings",
+                        "link": "/admin/auth/group/",
+                    },
+                    {
+                        "title": "API Tokens",
+                        "icon": "token",
+                        "link": "/admin/authtoken/tokenproxy/",
+                    },
+                ],
+            },
+            {
+                "title": "Inventory",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Products",
+                        "icon": "inventory_2",
+                        "link": "/admin/inventory/product/",
+                    },
+                    {
+                        "title": "Categories",
+                        "icon": "category",
+                        "link": "/admin/inventory/category/",
+                    },
+                    {
+                        "title": "Suppliers",
+                        "icon": "local_shipping",
+                        "link": "/admin/inventory/supplier/",
+                    },
+                    {
+                        "title": "Customers",
+                        "icon": "group",
+                        "link": "/admin/inventory/customer/",
+                    },
+                    {
+                        "title": "Discounts",
+                        "icon": "sell",
+                        "link": "/admin/inventory/discount/",
+                    },
+                ],
+            },
+            {
+                "title": "Sales & Orders",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Sales",
+                        "icon": "point_of_sale",
+                        "link": "/admin/inventory/sale/",
+                    },
+                    {
+                        "title": "Purchase Orders",
+                        "icon": "shopping_cart",
+                        "link": "/admin/inventory/purchaseorder/",
+                    },
+                    {
+                        "title": "Expenses",
+                        "icon": "receipt_long",
+                        "link": "/admin/inventory/expense/",
+                    },
+                ],
+            },
+            {
+                "title": "Reports",
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": "Activity Logs",
+                        "icon": "history",
+                        "link": "/admin/inventory/activitylog/",
+                    },
+                ],
+            },
+        ],
     },
     "TABS": [
         {
@@ -208,17 +325,22 @@ UNFOLD = {
             "items": [
                 {
                     "title": "Products",
+                    "icon": "inventory_2",
                     "link": "/admin/inventory/product/",
                 },
                 {
                     "title": "Categories",
+                    "icon": "category",
                     "link": "/admin/inventory/category/",
                 },
                 {
                     "title": "Suppliers",
+                    "icon": "local_shipping",
                     "link": "/admin/inventory/supplier/",
                 },
             ],
         },
     ],
 }
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
