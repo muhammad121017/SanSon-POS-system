@@ -14,7 +14,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3309:3306"
 
   backend:
     build:
@@ -44,7 +44,7 @@ services:
     container_name: pos_frontend
     restart: always
     ports:
-      - "8080:80"
+      - "8090:80"
     depends_on:
       - backend
     volumes:
