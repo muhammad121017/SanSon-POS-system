@@ -46,7 +46,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
-      - traefik.http.routers.sansons.rule=Host(`sansons.shop`,`www.sansons.shop`)
+      - "traefik.http.routers.sansons.rule=Host(`sansons.shop`) || Host(`www.sansons.shop`)"
       - traefik.http.routers.sansons.entrypoints=websecure
       - traefik.http.routers.sansons.tls=true
       - traefik.http.routers.sansons.tls.certresolver=mytlschallenge
