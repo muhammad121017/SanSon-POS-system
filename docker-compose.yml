@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -8,13 +6,14 @@ services:
     environment:
       MYSQL_DATABASE: pos_db
       MYSQL_USER: pos_user
-      # Feel free to change these credentials
       MYSQL_PASSWORD: pos_password
       MYSQL_ROOT_PASSWORD: pos_root_password
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
       - "3309:3306"
+    networks:
+      - app-net
 
   backend:
     build:
@@ -36,6 +35,8 @@ services:
       - db
     volumes:
       - django_static:/app/staticfiles
+    networks:
+      - app-net
 
   frontend:
     build:
@@ -43,13 +44,26 @@ services:
       dockerfile: Dockerfile
     container_name: pos_frontend
     restart: always
-    ports:
-      - "8090:80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sansons.rule=Host(`sansons.shop`,`www.sansons.shop`)
+      - traefik.http.routers.sansons.entrypoints=websecure
+      - traefik.http.routers.sansons.tls=true
+      - traefik.http.routers.sansons.tls.certresolver=mytlschallenge
+      - traefik.http.services.sansons.loadbalancer.server.port=80
     depends_on:
       - backend
     volumes:
       - django_static:/usr/share/nginx/html/static
+    networks:
+      - app-net
+      - n8n_default
 
 volumes:
   mysql_data:
   django_static:
+
+networks:
+  app-net:
+  n8n_default:
+    external: true
