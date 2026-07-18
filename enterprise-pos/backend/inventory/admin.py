@@ -2,8 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import User, Group
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.admin import TokenAdmin as BaseTokenAdmin
 
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
@@ -17,7 +15,6 @@ from .models import (
 # ── Re-register Django built-in models with Unfold theme ──────────────
 admin.site.unregister(User)
 admin.site.unregister(Group)
-admin.site.unregister(Token)
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, ModelAdmin):
@@ -29,8 +26,16 @@ class UserAdmin(BaseUserAdmin, ModelAdmin):
 class GroupAdmin(BaseGroupAdmin, ModelAdmin):
     pass
 
-@admin.register(Token)
-class TokenAdmin(BaseTokenAdmin, ModelAdmin):
+# Re-register Token (DRF uses TokenProxy internally)
+try:
+    from rest_framework.authtoken.models import TokenProxy
+    from rest_framework.authtoken.admin import TokenAdmin as BaseTokenAdmin
+    admin.site.unregister(TokenProxy)
+
+    @admin.register(TokenProxy)
+    class TokenAdmin(BaseTokenAdmin, ModelAdmin):
+        pass
+except Exception:
     pass
 
 # Inline models for cleaner layouts
