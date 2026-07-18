@@ -86,6 +86,11 @@ else:
     ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# Secure proxy SSL header for HTTPS behind reverse proxies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Trusted origins for CSRF protection
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:5173',
@@ -93,6 +98,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5174',
     'http://127.0.0.1:3000',
     'http://localhost:3000',
+    'https://sansons.shop',
+    'https://www.sansons.shop',
 ]
 
 ROOT_URLCONF = 'config.urls'
