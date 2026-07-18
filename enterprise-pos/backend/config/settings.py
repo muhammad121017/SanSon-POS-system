@@ -39,6 +39,7 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,3 +177,48 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Unfold Premium SaaS Admin Theme Configuration
+UNFOLD = {
+    "SITE_TITLE": "SanSons POS",
+    "SITE_HEADER": "SanSons POS",
+    "SITE_URL": "/",
+    "COLORS": {
+        "primary": {
+            "50": "#fafafa",
+            "100": "#f4f4f5",
+            "200": "#e4e4e7",
+            "300": "#d4d4d8",
+            "400": "#a1a1aa",
+            "500": "#71717a",
+            "600": "#52525b",
+            "700": "#3f3f46",
+            "800": "#27272a",
+            "900": "#18181b",
+            "950": "#000000",
+        },
+    },
+    "TABS": [
+        {
+            "models": [
+                "inventory.product",
+                "inventory.category",
+                "inventory.supplier",
+            ],
+            "items": [
+                {
+                    "title": "Products",
+                    "link": "/admin/inventory/product/",
+                },
+                {
+                    "title": "Categories",
+                    "link": "/admin/inventory/category/",
+                },
+                {
+                    "title": "Suppliers",
+                    "link": "/admin/inventory/supplier/",
+                },
+            ],
+        },
+    ],
+}
