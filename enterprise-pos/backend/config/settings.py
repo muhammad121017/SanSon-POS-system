@@ -316,6 +316,11 @@ UNFOLD = {
                         "icon": "history",
                         "link": "/admin/inventory/activitylog/",
                     },
+                    {
+                        "title": "Admin Logs",
+                        "icon": "manage_search",
+                        "link": "/admin/admin/logentry/",
+                    },
                 ],
             },
         ],
